@@ -433,7 +433,7 @@ V.integrated = () => {
 };
 
 V.pin = () => {
-  const d = [["Dates", 12.4], ["Juices", 6.1], ["Dairy", 3.2], ["Bakery", -1.8], ["Snacks", -4.5], ["Water", -7.9], ["Frozen", 9.0]].sort((a, b) => b[1] - a[1]);
+  const d = [["Coffee", 12.4], ["Tea", 6.1], ["Rice", 3.2], ["Bakery", -1.8], ["Snacks", -4.5], ["Pasta", -7.9], ["Frozen", 9.0]].sort((a, b) => b[1] - a[1]);
   const sx = sc(-10, 18, 72, 284), z = sx(0); let s = tx(4, 10, "ΔPL % by product line", "tm");
   d.forEach(([k, v], i) => { const y = 25 + i * 19; s += tx(6, y + 3, k) + ln(z, y, sx(v), y, v >= 0 ? "stpos" : "stneg") + ci(sx(v), y, 4, (v >= 0 ? "pos" : "neg") + " dot", `${k}: ${sgn(v, 1)} % vs plan`) + tx(v >= 0 ? sx(v) + 8 : sx(v) - 8, y + 3, sgn(v, 1) + " %", "tv", v >= 0 ? "start" : "end"); });
   return s + ln(z, 16, z, 158, "axis");
@@ -489,12 +489,12 @@ V.likert = () => {
 };
 
 V.bubble = () => {
-  const p = [["Dates", 12, 34, 60, 1], ["Juices", 7, 22, 45, 2], ["Water", 3, 14, 70, 2], ["Dairy", 1, 26, 55, 1], ["Bakery", -3, 18, 25, 1], ["Cleaning", 9, 29, 20, 3], ["Paper", -1, 12, 30, 3], ["Snacks", 14, 24, 15, 1]];
+  const p = [["Rice", 12, 34, 60, 1], ["Coffee", 7, 22, 45, 2], ["Tea", 3, 14, 70, 2], ["Pasta", 1, 26, 55, 1], ["Bakery", -3, 18, 25, 1], ["Cleaning", 9, 29, 20, 3], ["Paper", -1, 12, 30, 3], ["Snacks", 14, 24, 15, 1]];
   const sx = sc(-6, 17, 38, 288), sy = sc(5, 40, 148, 22);
   let s = yAxis(sy, [10, 20, 30, 40], 34, 288) + [-5, 0, 5, 10, 15].map((t) => tx(sx(t), 160, t + "%", "tm", "middle")).join("");
   s += tx(288, 168, "Growth →", "tm", "end") + tx(34, 15, "Margin %", "tm") + legend([["m1", "Food"], ["m2", "Beverages"], ["m3", "Home"]], 128, 14);
   p.sort((a, b) => b[3] - a[3]).forEach(([n, g, m, rev, gr]) => { s += ci(sx(g), sy(m), r(Math.sqrt(rev) * 1.5), `m${gr} op dot`, `${n}: growth ${g} %, margin ${m} %, revenue ${rev} m`); });
-  s += tx(sx(3), sy(14) + 3, "Water", "t halo", "middle") + tx(sx(12), sy(34) + 3, "Dates", "t halo", "middle");
+  s += tx(sx(3), sy(14) + 3, "Tea", "t halo", "middle") + tx(sx(12), sy(34) + 3, "Rice", "t halo", "middle");
   return s;
 };
 
@@ -528,7 +528,7 @@ V.combo = () => {
 };
 
 V.orderbar = () => {
-  const d = [["Dates premium", 38.2], ["Laban 1 L", 31.5], ["Juice 250 ml", 27.9], ["Water 600 ml", 22.4], ["Cheese slices", 17.8], ["Bread", 12.1]], sx = sc(0, 45, 92, 280);
+  const d = [["Coffee 250 g", 38.2], ["Rice 5 kg", 31.5], ["Tea 100 bags", 27.9], ["Pasta 500 g", 22.4], ["Olive oil 1 L", 17.8], ["Sugar 1 kg", 12.1]], sx = sc(0, 45, 92, 280);
   let s = tx(4, 10, "Top 6 products, revenue m SAR", "tm");
   d.forEach(([k, v], i) => { const y = 22 + i * 22; s += tx(6, y + 9.5, k) + hbar(y + 1, 12, sx(0), sx(v), "m1", `${k}: ${v}`) + tx(sx(v) + 4, y + 10, v.toFixed(1), "tv"); });
   return s + ln(sx(0), 18, sx(0), 152, "axis");
@@ -559,7 +559,7 @@ V.slope = () => {
 };
 
 V.bump = () => {
-  const d = [["Laban", [1, 1, 2, 3, 3, 2], "l1", "m1"], ["Juice", [2, 3, 1, 1, 1, 1], "l2", "m2"], ["Water", [3, 2, 3, 2, 2, 3], "l3", "m3"], ["Cheese", [4, 4, 4, 4, 4, 4], "lmut", "mm"]];
+  const d = [["Rice", [1, 1, 2, 3, 3, 2], "l1", "m1"], ["Tea", [2, 3, 1, 1, 1, 1], "l2", "m2"], ["Pasta", [3, 2, 3, 2, 2, 3], "l3", "m3"], ["Olive oil", [4, 4, 4, 4, 4, 4], "lmut", "mm"]];
   const sx = (i) => 40 + i * 40, sy = (k) => 30 + (k - 1) * 36;
   let s = [1, 2, 3, 4].map((k) => tx(14, sy(k) + 3, "#" + k, "th", "middle")).join("") + [0, 1, 2, 3, 4, 5].map((i) => tx(sx(i), 166, "Q" + (i + 1), "tm", "middle")).join("");
   d.forEach(([n, rk, lc, mc]) => { s += pa(pline(rk.map((k, i) => [sx(i), sy(k)])), lc) + rk.map((k, i) => ci(sx(i), sy(k), 4.5, mc + " dot", `${n} Q${i + 1}: rank ${k}`)).join("") + tx(sx(5) + 10, sy(rk[5]) + 3, n, "t"); });
@@ -680,7 +680,7 @@ V.burnup = () => {
 };
 
 V.sparktable = () => {
-  seed = 9; const d = [["Laban 1 L", 31.5, 0.96, 4.2], ["Juice 250 ml", 27.9, 1.04, 7.9], ["Water 600 ml", 22.4, 0.88, -3.1], ["Cheese", 17.8, 1.01, 1.4], ["Bread", 12.1, 0.79, -6.0]];
+  seed = 9; const d = [["Rice 5 kg", 31.5, 0.96, 4.2], ["Tea 100 bags", 27.9, 1.04, 7.9], ["Pasta 500 g", 22.4, 0.88, -3.1], ["Olive oil", 17.8, 1.01, 1.4], ["Sugar 1 kg", 12.1, 0.79, -6.0]];
   let s = tx(6, 14, "Product", "th") + tx(102, 14, "AC", "th", "end") + tx(110, 14, "12 months", "th") + tx(170, 14, "vs PL", "th") + tx(296, 14, "ΔPY %", "th", "end") + ln(4, 20, 296, 20, "axis");
   d.forEach(([k, v, att, py], i) => {
     const y = 26 + i * 25; s += tx(6, y + 11, k) + tx(102, y + 11, v.toFixed(1), "tv", "end");
@@ -1036,7 +1036,7 @@ const CARDS = [
   ["C7", "Multi-KPI card", "P&L summary · m SAR · YTD Oct vs PL", `<div class="krows">${[["Revenue", "412.6", "−4.0 %", "dn-bad", rev], ["Gross margin %", "42.0 %", "−1.0 pp", "dn-bad", [43, 43.2, 42.8, 42.5, 42.6, 42.2, 42.1, 42.3, 42.0, 42.0]], ["EBIT", "75.1", "−15.6 %", "dn-bad", [6.1, 6.8, 7.0, 7.2, 7.5, 7.4, 7.8, 8.0, 8.4, 8.9]], ["Cash", "128.4", "+6.1 %", "up-good", [110, 112, 115, 117, 116, 120, 122, 125, 126, 128.4]]].map(([k, v, d, c, sp]) => `<div class="krow"><span>${k}</span><span class="v">${v} <span class="${c}" style="font-weight:600">${d}</span></span>${spark(sp, null, 74, 22, { label: k + " trend" })}</div>`).join("")}</div>`, "", "○ Not native (one composite per KPI)", "Backlog B6", "Executive cockpit tiles", "Several measures, one binding, one query"],
   ["C8", "Bullet list card", "Working capital · days · Oct", `<div style="margin-top:6px">${(() => { let s = ""; [["DSO", 58, 50, [45, 60, 90]], ["DIO", 41, 45, [40, 55, 80]], ["DPO", 62, 60, [45, 60, 90]]].forEach(([k, v, t, b], i) => { const y = i * 26, sx = k === "DPO" ? sc(0, 90, 40, 220) : sc(90, 0, 40, 220), cls = k === "DPO" ? ["bd1", "bd2", "bd3"] : ["bd3", "bd2", "bd1"], e = [0, b[0], b[1], 90]; s += tx(0, y + 13, k, "tb"); for (let j = 0; j < 3; j++) { const a = sx(e[j]), c = sx(e[j + 1]); s += rect(Math.min(a, c), y + 3, Math.abs(c - a), 14, cls[j]); } s += rect(Math.min(sx(v), k === "DPO" ? 40 : 220), y + 8, Math.abs(sx(v) - (k === "DPO" ? 40 : 220)), 4, "ac", `${k} ${v} days, target ${t}`) + rect(sx(t) - 1, y + 4, 2, 12, "mi") + tx(260, y + 13, v + " d", "tv", "end"); }); return `<svg viewBox="0 0 260 78" role="img" aria-label="DSO 58, DIO 41, DPO 62 days against targets">${s}</svg>`; })()}</div><p class="knote">DSO and DIO: lower is better, so their scales run right to left.</p>`, "", "◐ One native bullet per KPI", "Backlog B6", "Working-capital days, service levels", "Measures + targets + band thresholds"],
   ["C9", "Status / exception card", "Close status · 12 entities · Day 7", `<div class="kval" style="font-size:26px">3 need action</div><div style="display:flex;gap:2px;margin-top:10px;height:8px" aria-label="9 on track, 2 at risk, 1 late"><span style="flex:9;background:var(--good);border-radius:4px 0 0 4px"></span><span style="flex:2;background:var(--warn)"></span><span style="flex:1;background:var(--bad);border-radius:0 4px 4px 0"></span></div><div class="kmeta" style="margin-top:10px;grid-template-columns:1fr 1fr"><span>✓ 9 on track</span><span class="wtx">▲ 2 at risk</span><span class="dn-bad">✕ 1 late: LBN</span><span class="mut">IC matching +2 days</span></div>`, "var(--warn)", "◐ Table + thresholds", "Backlog B13", "Close cockpit, IC reconciliation, supplier OTIF alerts", "Item dimension + status measure"],
-  ["C10", "Leaderboard card", "Top reps · quota attainment · YTD", `<div class="krows">${[["Huda A.", 128, "▲ 2"], ["Omar K.", 117, "—"], ["Sara M.", 109, "▼ 2"], ["Faisal R.", 104, "▲ 1"], ["Lina T.", 98, "▼ 1"]].map(([n, v, ch]) => `<div class="krow" style="grid-template-columns:76px 1fr 40px"><span>${n}</span><span style="display:flex;align-items:center;gap:6px"><span style="height:8px;width:${v * 0.6}%;max-width:100%;background:var(--c1);border-radius:0 3px 3px 0"></span><b style="font-size:12px">${v} %</b></span><span class="${ch.startsWith("▲") ? "up-good" : ch.startsWith("▼") ? "dn-bad" : "mut"}" style="font-size:12px;text-align:right">${ch}</span></div>`).join("")}</div>`, "", "◐ Table + in-cell bars + Top N", "Backlog B7", "Sales reps, products, branches", "Rep dimension + AC + quota; rank change from PY rank"],
+  ["C10", "Leaderboard card", "Top reps · quota attainment · YTD", `<div class="krows">${[["Rep A", 128, "▲ 2"], ["Rep B", 117, "—"], ["Rep C", 109, "▼ 2"], ["Rep D", 104, "▲ 1"], ["Rep E", 98, "▼ 1"]].map(([n, v, ch]) => `<div class="krow" style="grid-template-columns:76px 1fr 40px"><span>${n}</span><span style="display:flex;align-items:center;gap:6px"><span style="height:8px;width:${v * 0.6}%;max-width:100%;background:var(--c1);border-radius:0 3px 3px 0"></span><b style="font-size:12px">${v} %</b></span><span class="${ch.startsWith("▲") ? "up-good" : ch.startsWith("▼") ? "dn-bad" : "mut"}" style="font-size:12px;text-align:right">${ch}</span></div>`).join("")}</div>`, "", "◐ Table + in-cell bars + Top N", "Backlog B7", "Sales reps, products, branches", "Rep dimension + AC + quota; rank change from PY rank"],
   ["C11", "Funnel card", "Pipeline · Q4 · count of deals", `<div class="krows">${[["Leads", 1200, ""], ["Qualified", 640, "53 %"], ["Proposal", 310, "48 %"], ["Won", 92, "30 %"]].map(([n, v, c], i) => `<div class="krow" style="grid-template-columns:70px 1fr 40px"><span>${n}</span><span style="display:flex;align-items:center;gap:6px"><span style="height:10px;width:${(v / 1200) * 100}%;min-width:4px;background:var(--o${i + 2});border-radius:3px"></span><b style="font-size:12px">${v}</b></span><span class="mut" style="font-size:12px;text-align:right">${c}</span></div>`).join("")}</div>`, "", "● Native funnel (QRC3 2026)", "In kit", "Pipeline, recruiting, collections", "Stage dimension + count or value"],
   ["C12", "Narrative card", "Summary · October", `<p class="narr">Revenue reached <b>40.2 m SAR</b>, <b class="up-good">+11.7 %</b> on last October, driven by <b>KSA retail</b>. EBIT is <b class="dn-bad">15.6 % below plan</b> year to date, mainly KSA opex.</p>`, "", "◐ Dynamic text, Smart Insights", "Backlog B6 option", "Executive summary line, mobile", "Same bound data as the cards"],
   ["C13", "Gauge card", "Net revenue · % of plan · YTD", `<svg viewBox="0 0 260 120" role="img" aria-label="Gauge at 96 percent of plan">${pa(arcBand(130, 104, 62, 80, -Math.PI / 2, Math.PI / 2), "trk")}${pa(arcBand(130, 104, 62, 80, -Math.PI / 2, -Math.PI / 2 + Math.PI * 0.96), "ac", "96 % of plan")}${tx(130, 98, "96 %", "tbig", "middle", 'style="font-size:22px"')}</svg><p class="knote avoid">Uses a lot of space and hides the gap. Prefer C4 unless the audience insists.</p>`, "", "● Native gauge (QRC3 2026)", "In kit", "Rarely; replace with C4", "Measure + target"],
