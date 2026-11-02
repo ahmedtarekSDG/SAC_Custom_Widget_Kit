@@ -8,6 +8,9 @@ build first, for which business area, and which comparison visual to pick for wh
 It assumes stories on **SAP Datasphere analytic models** (live), so every proposal states the data shape the
 widget needs from the model.
 
+A companion page, [SAC_Visual_Guide.html](SAC_Visual_Guide.html), shows a worked example of every visual and card type
+in this chapter (open it in a browser; it works offline except for the web fonts).
+
 Legend used throughout:
 
 | Symbol | Meaning |
